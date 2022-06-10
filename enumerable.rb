@@ -1,33 +1,23 @@
-class MyList
-  def initialize( list ) 
-    @list = list
-  end
-
-  # include MyEnumerable
-
-  def each_item(list)
-    @list = list
-  end
-end
-
-
 module MyEnumerable
-  def all(list)
-    list.each do |item|
-      if item < 5
-    return false
+  def all?
+    each do |item|
+    return false unless yield(item)
+    end
+    true
   end
 end
 
-  # def any
-  #   list.
-  #   # sdfsdf
-  # end
+class MyList
+  include MyEnumerable
+  def initialize(list) 
+    @list = list
+  end
 
-
-  # def filter
-  #   # sdfsdf
-  # end
-  # yield MyEnumerable
+  def each
+    @list.each do |item|
+      yield item
+    end
+  end
+end
 
 list = MyList.new(1, 2, 3, 4)
